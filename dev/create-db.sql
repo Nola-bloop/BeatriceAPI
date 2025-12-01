@@ -17,11 +17,11 @@ CREATE TABLE playlist (
 	FOREIGN KEY (author) REFERENCES user(id)
 );
 
-CREATE TABLE collaborator (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE collaboration (
 	collaborator INTEGER NOT NULL,
 	playlist_id INTEGER NOT NULL,
 
+	primary key (collaborator, playlist_id)
 	FOREIGN KEY (collaborator) REFERENCES user(id),
 	FOREIGN KEY (playlist_id) REFERENCES playlist(id)
 );
