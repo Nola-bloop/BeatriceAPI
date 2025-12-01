@@ -1,0 +1,36 @@
+DROP DATABASE IF EXISTS beatrice;
+CREATE DATABASE beatrice;
+USE beatrice;
+
+CREATE TABLE user (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	user_id VARCHAR(18),
+);
+
+CREATE TABLE playlist (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(50) NOT NULL,
+	count INTEGER NOT NULL,
+	total_time INTEGER NOT NULL,
+	author INTEGER NOT NULL,
+
+	FOREIGN KEY (author) REFERENCES user(id)
+);
+
+CREATE TABLE collaborator (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	collaborator INTEGER NOT NULL,
+	playlist_id INTEGER NOT NULL,
+
+	FOREIGN KEY (collaborator) REFERENCES user(id),
+	FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+);
+
+CREATE TABLE song (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(50) NOT NULL,
+	url VARCHAR(255) NOT NULL,
+	playlist_id INTEGER NOT NULL,
+
+	FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+);
