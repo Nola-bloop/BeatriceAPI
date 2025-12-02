@@ -1,6 +1,7 @@
 import model from "../models/playlist.model.js"
 import song from "../models/song.model.js"
 import collaboration from "../models/collaboration.model.js"
+import userCtrl from "../controllers/user.controller.js"
 
 export default {
 	Create : (req, res) => {
@@ -11,13 +12,17 @@ export default {
 			!req.query.userId
 		) res.send({response:"missing query param"})
 
-		model.Create(
-			req.query.name,
-			req.query.count,
-			req.query.total_time,
-			req.query.userId,
-		).then((msg) =>{
-			res.json({response:msg})
+		user.ReadUserId(
+			req.query.userId
+		).then((user) => {
+			model.Create(
+				req.query.name,
+				req.query.count,
+				req.query.total_time,
+				user.id,
+			).then((msg) =>{
+				res.json({response:msg})
+			}).catch((e)=>{ res.json({response:e.toString()}) })
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	},
 	ReadUser : (req, res) => {
