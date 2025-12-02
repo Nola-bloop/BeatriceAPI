@@ -20,7 +20,13 @@ export default {
 		model.ReadId(
 			req.params.id
 		).then((user) =>{
-			res.json(user)
+			if (!user){
+				model.Create(req.params.id).then((msg) => {
+					model.ReadId(req.params.id).then((user) => {
+						return res.json(user)
+					}).catch((e)=>{ res.json({response:e.toString()}) })
+				}).catch((e)=>{ res.json({response:e.toString()}) })
+			}else res.json(user)
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	}
 }
