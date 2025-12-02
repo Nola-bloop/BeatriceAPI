@@ -28,7 +28,7 @@ export default {
 				}).catch((e)=>{ res.json({response:e.toString()}) })
 			}else res.json(user)
 		}).catch((e)=>{ res.json({response:e.toString()}) })
-	}
+	},
 	ReadUserIdInternal : async (id) => {
     if (!id) throw new Error("missing param");
 
