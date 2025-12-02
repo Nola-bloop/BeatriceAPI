@@ -4,7 +4,7 @@ USE beatrice;
 
 CREATE TABLE user (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	user_id VARCHAR(18),
+	user_id VARCHAR(18) NOT NULL UNIQUE
 );
 
 CREATE TABLE playlist (
@@ -21,16 +21,17 @@ CREATE TABLE collaboration (
 	collaborator INTEGER NOT NULL,
 	playlist_id INTEGER NOT NULL,
 
-	primary key (collaborator, playlist_id)
-	FOREIGN KEY (collaborator) REFERENCES user(id),
-	FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+	primary key (collaborator, playlist_id),
+	FOREIGN KEY (collaborator) REFERENCES user(id) ON DELETE CASCADE,
+	FOREIGN KEY (playlist_id) REFERENCES playlist(id) ON DELETE CASCADE
 );
 
 CREATE TABLE song (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
 	url VARCHAR(255) NOT NULL,
+	length INTEGER NOT NULL,
 	playlist_id INTEGER NOT NULL,
 
-	FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+	FOREIGN KEY (playlist_id) REFERENCES playlist(id) ON DELETE CASCADE
 );

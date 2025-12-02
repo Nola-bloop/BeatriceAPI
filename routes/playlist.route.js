@@ -1,10 +1,31 @@
-const express = require("express");
+import express from "express"
+import controller from "../controllers/playlist.controller.js"
 
 const router = express.Router();
 
-// Home page route.
-router.get("/", (req, res) => {
-  res.send("Wiki home page");
+// ?name&userId
+router.post("/", (req, res) => {
+  controller.Create(req, res)
 });
 
-module.exports = router;
+// /user/:userId
+router.get("/user/:userId", (req, res) => {
+  controller.ReadUser(req, res)
+});
+
+// /id/:id
+router.get("/id/:id", (req, res) => {
+  controller.ReadId(req, res)
+});
+
+// ?userId&id&name&count&total_time&author
+router.put("/", (req, res) => {
+  controller.Create(req, res)
+});
+
+// ?userId&id
+router.delete("/", (req, res) => {
+  controller.Delete(req, res)
+});
+
+export default router;
