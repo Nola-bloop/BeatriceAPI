@@ -30,12 +30,16 @@ export default {
 			!req.params.userId
 		) res.send({response:"missing query param"})
 
-		model.ReadUser(
-			req.params.userId
-		).then((rows) =>{
-			res.json({
-				hits: rows,
-			})
+		user.ReadUserId(
+			req.query.userId
+		).then((user) => {
+			model.ReadUser(
+				req.params.userId
+			).then((rows) =>{
+				res.json({
+					hits: rows,
+				})
+			}).catch((e)=>{ res.json({response:e.toString()}) })
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	},
 	ReadId : (req, res) => {
