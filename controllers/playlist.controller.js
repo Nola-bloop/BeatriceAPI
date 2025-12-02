@@ -69,20 +69,24 @@ export default {
 			)
 		) res.json({response:"missing query param"})
 
-		model.ReadId(
-			req.query.id
-		).then((playlist) => {
-			if (req.query.userId == playlist.author){
-				model.Update(
-				req.query.id,
-				req.query.name ?? playlist.name,
-				req.query.count ?? playlist.count,
-				req.query.total_time ?? playlist.total_time,
-				req.query.author ?? playlist.author
-				).then((msg) =>{
-					res.json({response:msg})
-				}).catch((e)=>{ res.json({response:e.toString()}) })
-			}
+		user.ReadUserId(
+			req.query.userId
+		).then((user) => {
+			model.ReadId(
+				req.query.id
+			).then((playlist) => {
+				if (user.id == playlist.author){
+					model.Update(
+					req.query.id,
+					req.query.name ?? playlist.name,
+					req.query.count ?? playlist.count,
+					req.query.total_time ?? playlist.total_time,
+					user.id ?? playlist.author
+					).then((msg) =>{
+						res.json({response:msg})
+					}).catch((e)=>{ res.json({response:e.toString()}) })
+				}
+			}).catch((e)=>{ res.json({response:e.toString()}) })
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	},
 	Delete : (req, res) => {
@@ -90,16 +94,20 @@ export default {
 			!req.query.id
 		) res.json({response:"missing query param"})
 		
-		model.ReadId(
-			req.query.id
-		).then((playlist) => {
-			if (req.query.userId == playlist.author){
-				model.Delete(
-					req.query.id
-				).then((msg) =>{
-					res.json({"response":msg})
-				}).catch((e)=>{ res.json({response:e.toString()}) })
-			}
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		user.ReadUserId(
+			req.query.userId
+		).then((user)=> {
+			model.ReadId(
+				req.query.id
+			).then((playlist) => {
+				if (user.id == playlist.author){
+					model.Delete(
+						req.query.id
+					).then((msg) =>{
+						res.json({"response":msg})
+					}).catch((e)=>{ res.json({response:e.toString()}) })
+				}
+			}).catch((e)=>{ res.json({response:e.toString()}) })
+		})
 	}
 }
