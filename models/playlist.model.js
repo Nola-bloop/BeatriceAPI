@@ -20,7 +20,7 @@ export default {
 	ReadId : async (id) => {
 		return new Promise((resolve, reject) => {
 			con.query("SELECT playlist.* FROM playlist WHERE playlist.id = ?", [id], (e, results) => {
-				if (!e) resolve(results[0])
+				if (!e) resolve(results ? { ...results } : {})
 				else reject(e)
 			})
 		})

@@ -10,7 +10,7 @@ router.post("", (req, res) => {
 
 // /:id
 router.get("/:id", (req, res) => {
-  controller.ReadId(req, res)
+  controller.ReadUserId(req, res)
 });
 
 export default router;

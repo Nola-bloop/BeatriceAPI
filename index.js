@@ -2,8 +2,6 @@ import express from 'express'
 const app = express()
 const PORT = 8888
 
-console.log("haha")
-
 //routes
 import collaborationRouter from './routes/collaboration.route.js'
 import playlistRouter from './routes/playlist.route.js'

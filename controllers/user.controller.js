@@ -12,18 +12,18 @@ export default {
 			res.json({response:msg})
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	},
-	ReadId : (req, res) => {
+	ReadUserId : (req, res) => {
 		if (
 			!req.params.id
 		) res.json({response:"missing param"})
 
-		model.ReadId(
+		model.ReadUserId(
 			req.params.id
 		).then((user) =>{
-			if (!user){
+			if (Object.keys(user).length === 0){
 				model.Create(req.params.id).then((msg) => {
-					model.ReadId(req.params.id).then((user) => {
-						return res.json(user)
+					model.ReadUserId(req.params.id).then((user) => {
+						res.json(user)
 					}).catch((e)=>{ res.json({response:e.toString()}) })
 				}).catch((e)=>{ res.json({response:e.toString()}) })
 			}else res.json(user)
