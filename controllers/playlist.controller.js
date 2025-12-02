@@ -26,6 +26,7 @@ export default {
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	},
 	ReadUser : (req, res) => {
+		console.log(req.params)
 		if (
 			!req.params.userId
 		) res.send({response:"missing query param"})
