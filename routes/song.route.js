@@ -23,4 +23,4 @@ router.delete("/", (req, res) => {
   controller.Delete(req, res)
 });
 
-export default router;
+export default router; 
