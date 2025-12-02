@@ -32,7 +32,7 @@ export default {
 		) res.send({response:"missing query param"})
 
 		userCtrl.ReadUserIdInternal(
-			req.query.userId
+			req.params.userId
 		).then((user) => {
 			model.ReadUser(
 				req.params.userId
