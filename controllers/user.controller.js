@@ -29,4 +29,20 @@ export default {
 			}else res.json(user)
 		}).catch((e)=>{ res.json({response:e.toString()}) })
 	}
+	ReadUserIdInternal : async (id) => {
+    if (!id) throw new Error("missing param");
+
+    try {
+        let user = await model.ReadUserId(id);
+
+        if (Object.keys(user).length === 0) {
+            await model.Create(id);
+            user = await model.ReadUserId(id);
+        }
+
+        return user;
+    } catch (e) {
+        throw new Error(e.toString());
+    }
+}
 }

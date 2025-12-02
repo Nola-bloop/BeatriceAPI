@@ -12,7 +12,7 @@ export default {
 			!req.query.userId
 		) res.send({response:"missing query param"})
 
-		userCtrl.ReadUserId(
+		userCtrl.ReadUserIdInternal(
 			req.query.userId
 		).then((user) => {
 			model.Create(
@@ -30,7 +30,7 @@ export default {
 			!req.params.userId
 		) res.send({response:"missing query param"})
 
-		userCtrl.ReadUserId(
+		userCtrl.ReadUserIdInternal(
 			req.query.userId
 		).then((user) => {
 			model.ReadUser(
@@ -69,7 +69,7 @@ export default {
 			)
 		) res.json({response:"missing query param"})
 
-		user.ReadUserId(
+		userCtrl.ReadUserIdInternal(
 			req.query.userId
 		).then((user) => {
 			model.ReadId(
@@ -94,7 +94,7 @@ export default {
 			!req.query.id
 		) res.json({response:"missing query param"})
 		
-		userCtrl.ReadUserId(
+		userCtrl.ReadUserIdInternal(
 			req.query.userId
 		).then((user)=> {
 			model.ReadId(
