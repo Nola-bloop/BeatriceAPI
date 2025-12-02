@@ -18,7 +18,7 @@ router.get("/id/:id", (req, res) => {
   controller.ReadId(req, res)
 });
 
-// ?userId&id&name&count&total_time&author
+// ?userId&id[&name][&count][&total_time][&author]
 router.put("/", (req, res) => {
   controller.Create(req, res)
 });
