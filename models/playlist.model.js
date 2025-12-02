@@ -1,4 +1,4 @@
-import con from "../db/beatrice.db.js"
+import con from "../beatrice.db.js"
 
 export default {
 	Create : async (name, count, total_time, author) => {
