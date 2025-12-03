@@ -21,9 +21,9 @@ export default {
 		}
 		return user
 	},
-	ReadUserIdInternal : async (id) => {
+	ReadUserIdInternal : async (userId) => {
 		let user = await model.ReadUserId(userId);
-		
+
 		if (!user || Object.keys(user).length === 0) {
 		    await model.Create(userId);
 		    user = await model.ReadUserId(userId);
