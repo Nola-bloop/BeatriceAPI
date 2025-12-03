@@ -10,6 +10,7 @@ export default {
 		})
 	},
 	ReadUser : async (id) => {
+		console.log("readuser id: "+id)
 		return new Promise((resolve, reject) => {
 			con.query("SELECT playlist.* FROM playlist INNER JOIN `user` ON `user`.id = playlist.author WHERE `user`.user_id = ? UNION SELECT playlist.* FROM `playlist` INNER JOIN `collaboration` ON playlist.id = collaboration.playlist_id INNER JOIN `user` ON user.id = collaboration.collaborator WHERE user.user_id = ?", [id, id], (e, results) => {
 				if (!e) resolve(results)
