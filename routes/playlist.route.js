@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -21,7 +21,7 @@ router.get("/user/:userId", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -32,7 +32,7 @@ router.get("/id/:id", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -43,7 +43,7 @@ router.put("/", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -54,7 +54,7 @@ router.delete("/", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 

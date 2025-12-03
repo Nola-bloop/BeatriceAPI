@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -21,7 +21,7 @@ router.get("/collaborator/:id", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
@@ -32,7 +32,7 @@ router.get("/playlist/:id", (req, res) => {
       res.json(j)
     })
   }catch(e){
-    res.json(error:e)
+    res.json({error:e.toString})
   }
 });
 
