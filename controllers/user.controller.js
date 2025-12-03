@@ -22,11 +22,13 @@ export default {
 		return user
 	},
 	ReadUserIdInternal : async (id) => {
-		let user = await model.ReadUserId(id)
-		if (Object.keys(user).length === 0){
-			await model.Create(id)
-			user = await model.ReadUserId(id)
+		let user = await model.ReadUserId(userId);
+		
+		if (!user || Object.keys(user).length === 0) {
+		    await model.Create(userId);
+		    user = await model.ReadUserId(userId);
 		}
-		return user
+
+		return user;
     }
 }
