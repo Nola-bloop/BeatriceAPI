@@ -20,7 +20,7 @@ export default {
 		) return {response:"missing query param"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.params.userId)
-		let rows = await model.ReadUser(user.userId)
+		let rows = await model.ReadUser(user.user_id)
 		console.log(rows)
 		return rows
 	},
