@@ -69,6 +69,7 @@ export default {
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let playlist = await model.ReadId(req.query.id)
+		console.log(user.id + " ; " + playlist.author)
 		if (user.id === playlist.author){
 			model.Delete(playlist.id)
 			return {response:"success"}
