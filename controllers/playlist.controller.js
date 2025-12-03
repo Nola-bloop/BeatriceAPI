@@ -21,7 +21,6 @@ export default {
 
 		let user = await userCtrl.ReadUserIdInternal(req.params.userId)
 		let rows = await model.ReadUser(user.user_id)
-		console.log(rows)
 		return rows
 	},
 	ReadId : async (req) => {
@@ -69,6 +68,7 @@ export default {
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let playlist = await model.ReadId(req.query.id)
+		console.log(playlist)
 		console.log(user.id + " ; " + playlist.author)
 		if (user.id === playlist.author){
 			model.Delete(playlist.id)
