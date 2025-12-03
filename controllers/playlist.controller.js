@@ -21,6 +21,7 @@ export default {
 
 		let user = await userCtrl.ReadUserIdInternal(req.params.userId)
 		let rows = await model.ReadUser(user.id)
+		console.log(rows)
 		return rows
 	},
 	ReadId : async (req) => {
