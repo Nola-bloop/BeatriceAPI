@@ -5,37 +5,57 @@ const router = express.Router();
 
 // ?name&userId
 router.post("/", (req, res) => {
-  controller.Create(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.Create(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // /user/:userId
 router.get("/user/:userId", (req, res) => {
-  controller.ReadUser(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.ReadUser(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // /id/:id
 router.get("/id/:id", (req, res) => {
-  controller.ReadId(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.ReadId(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // ?userId&id[&name][&author]
 router.put("/", (req, res) => {
-  controller.Update(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.Update(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // ?userId&id
 router.delete("/", (req, res) => {
-  controller.Delete(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.Delete(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 export default router;

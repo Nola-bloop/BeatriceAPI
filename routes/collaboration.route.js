@@ -5,23 +5,35 @@ const router = express.Router();
 
 // ?name&url&playlistId
 router.post("/", (req, res) => {
-  controller.Create(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.Create(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // /collaborator/:id
 router.get("/collaborator/:id", (req, res) => {
-  controller.ReadByCollaborator(req).then((j)=>{
-    res.json(j)
-  })
+  try{
+    controller.ReadByCollaborator(req).then((j)=>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // /playlist/:id
 router.get("/playlist/:id", (req, res) => {
-  controller.ReadByPlaylist(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.ReadByPlaylist(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 export default router;

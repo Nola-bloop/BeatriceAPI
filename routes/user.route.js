@@ -5,16 +5,24 @@ const router = express.Router();
 
 // ?userId
 router.post("", (req, res) => {
-  controller.Create(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.Create(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 // /:userId
 router.get("/:id", (req, res) => {
-  controller.ReadUserId(req).then((j) =>{
-    res.json(j)
-  })
+  try{
+    controller.ReadUserId(req).then((j) =>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json(error:e)
+  }
 });
 
 export default router;
