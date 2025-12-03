@@ -1,60 +1,44 @@
 import model from "../models/song.model.js"
 
 export default {
-	Create : (req, res) => {
+	Create : async (req) => {
 		if (
 			!req.query.name ||
 			!req.query.url ||
 			!req.query.length ||
 			!req.query.playlistId
-		) res.json({response:"missing query param"})
+		) return {response:"missing query param"}
 
-		model.Create(
+		await model.Create(
 			req.query.name,
 			req.query.url,
 			req.query.length,
-			req.query.playlistId,
-		).then((msg) =>{
-			res.json({response:msg})
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+			req.query.playlistId
+		)
+		return {response:"success"}
 	},
-	ReadId : (req, res) => {
+	ReadId : async (req) => {
 		if (
 			!req.params.id
-		) res.json({response:"missing param"})
+		) return {response:"missing param"}
 
-		model.ReadId(
-			req.params.id
-		).then((rows) =>{
-			res.json(rows)
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		let rows = await model.ReadId(req.params.id)
+		return rows
 	},
-	ReadPlaylistId : (req, res) => {
+	ReadPlaylistId : async (req) => {
 		if (
 			!req.params.id
-		) res.send({response:"missing param"})
+		) return {response:"missing param"}
 
-		model.ReadPlaylistId(
-			req.params.id
-		).then((rows) =>{
-			res.json({
-				hits: rows
-			})
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		let rows = model.ReadPlaylistId(req.params.id)
+		return rows
 	},
-	Delete : (req, res) => {
+	Delete : async (req) => {
 		if (
 			!req.query.id
-		) res.send({response:"missing query param"})
+		) return {response:"missing query param"}
 
-		model.ReadId(
-			req.query.id
-		).then((song) => {
-			model.Delete(
-				req.query.id
-			).then((msg) =>{
-				res.json({"response":msg})
-			}).catch((e)=>{ res.json({response:e.toString()}) })
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		await model.Delete(req.query.id)
+		return {response:"success"}
 	}
 }

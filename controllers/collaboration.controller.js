@@ -1,39 +1,29 @@
 import model from "../models/collaboration.model.js"
 
 export default {
-	Create : (req, res) => {
+	Create : async (req) => {
 		if (
 			!req.query.collaborator ||
 			!req.query.playlistId
-		) res.json({response:"missing query param"})
+		) return {response:"missing query param"}
 
-		model.Create(
-			req.query.collaborator,
-			req.query.playlistId
-		).then((msg) =>{
-			res.json({response:msg})
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		await model.Create(req.query.collaborator,req.query.playlistId)
+		return {"response": "success"}
 	},
-	ReadByCollaborator : (req, res) => {
+	ReadByCollaborator : async (req, res) => {
 		if (
 			!req.params.id
-		) res.json({response:"missing param"})
+		) return {response:"missing param"}
 
-		model.ReadByCollaborator(
-			req.params.id
-		).then((rows) =>{
-			res.json(rows)
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		let rows = await model.ReadByCollaborator(req.params.id)
+		return rows
 	},
-	ReadByPlaylist : (req, res) => {
+	ReadByPlaylist : async (req, res) => {
 		if (
 			!req.params.id
-		) res.send({response:"missing param"})
+		) return {response:"missing param"}
 
-		model.ReadByPlaylist(
-			req.params.id
-		).then((rows) =>{
-			res.json(rows)
-		}).catch((e)=>{ res.json({response:e.toString()}) })
+		let rows = await model.ReadByPlaylist(req.params.id)
+		return rows
 	}
 }

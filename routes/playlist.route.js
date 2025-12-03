@@ -5,32 +5,37 @@ const router = express.Router();
 
 // ?name&userId
 router.post("/", (req, res) => {
-  console.log(req.originalUrl)
-  controller.Create(req, res)
+  controller.Create(req).then((j) =>{
+    res.json(j)
+  })
 });
 
 // /user/:userId
 router.get("/user/:userId", (req, res) => {
-  console.log(req.originalUrl)
-  controller.ReadUser(req, res)
+  controller.ReadUser(req).then((j) =>{
+    res.json(j)
+  })
 });
 
 // /id/:id
 router.get("/id/:id", (req, res) => {
-  console.log(req.originalUrl)
-  controller.ReadId(req, res)
+  controller.ReadId(req).then((j) =>{
+    res.json(j)
+  })
 });
 
-// ?userId&id[&name][&count][&total_time][&author]
+// ?userId&id[&name][&author]
 router.put("/", (req, res) => {
-  console.log(req.originalUrl)
-  controller.Create(req, res)
+  controller.Update(req).then((j) =>{
+    res.json(j)
+  })
 });
 
 // ?userId&id
 router.delete("/", (req, res) => {
-  console.log(req.originalUrl)
-  controller.Delete(req, res)
+  controller.Delete(req).then((j) =>{
+    res.json(j)
+  })
 });
 
 export default router;
