@@ -20,7 +20,7 @@ export default {
 	ReadUserId : async (id) => {
 		return new Promise((resolve, reject) => {
 			con.query("SELECT user.* FROM user WHERE user.user_id = ?", [id], (e, results) => {
-				if (!e) resolve(results ? { ...results } : {})
+				if (!e) resolve(results ? results[0] : {})
 				else reject(e)
 			})
 		})
