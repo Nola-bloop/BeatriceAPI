@@ -38,9 +38,9 @@ async function GetVideoLength(videoId){
     const response = await fetch(url);
     const videoObj = await response.json();
 
-    if (videoObj.error) return { response: "Invalid API request." };
+    if (videoObj.error) return [{ response: "Invalid API request." }, null];
     if (!videoObj.items || videoObj.items.length === 0)
-        return { response: "Invalid video ID." };
+        return [{ response: "Invalid video ID." }, null];
 
     const data = videoObj.items[0];
     const title = data.snippet.title;
