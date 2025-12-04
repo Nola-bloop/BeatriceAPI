@@ -32,5 +32,13 @@ export default {
 				else reject(e)
 			})
 		})
-	}
+	},
+	Delete : async (collaborator, playlistId) => {
+		return new Promise((resolve, reject) =>{
+			con.query("DELETE FROM collaboration WHERE  collaboration.collaborator = ? AND collaboration.playlist_id = ?", [collaborator, playlistId], (e, results) => {
+				if (!e) resolve("success.")
+				else reject(e)
+			})
+		})
+	},
 }

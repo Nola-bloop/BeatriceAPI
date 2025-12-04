@@ -1,11 +1,20 @@
 import model from "../models/collaboration.model.js"
+import userCtrl from "../controllers/user.controller.js"
+import playlists from "../models/playlist.model.js"
 
 export default {
 	Create : async (req) => {
 		if (
+			!req.query.userId ||
 			!req.query.collaborator ||
 			!req.query.playlistId
 		) return {response:"missing query param"}
+
+		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
+		let playlist = await playlists.ReadId(req.query.playlistId)
+		if (!playlist) return {response:"This playlist does not exist."}
+
+		if (playlist.author != user.id) return {response:"You are not the author of this playlist."}
 
 		await model.Create(req.query.collaborator,req.query.playlistId)
 		return {"response": "success"}
@@ -28,5 +37,21 @@ export default {
 	},
 	ReadByBothInternal : async (id, playlistId) => {
 		return await model.ReadByBoth(id, playlistId)
+	},
+	Delete : async (req) => {
+		if (
+			!req.query.userId ||
+			!req.query.collaborator ||
+			!req.query.playlistId
+		) return {response:"missing query param"}
+
+		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
+		let playlist = await playlists.ReadId(req.query.playlistId)
+		if (!playlist) return {response:"This playlist does not exist."}
+
+		if (playlist.author != user.id) return {response:"You are not the author of this playlist."}
+
+		await model.Delete(req.query.collaborator,req.query.playlistId)
+		return {"response": "success"}
 	}
 }
