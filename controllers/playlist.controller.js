@@ -51,8 +51,8 @@ export default {
 			await model.Update(
 				req.query.id,
 				req.query.name ?? playlist.name,
-				req.query.count,
-				req.query.total_time,
+				playlist.count,
+				playlist.total_time,
 				user.id ?? playlist.author
 			)
 			return {response: "success"}
