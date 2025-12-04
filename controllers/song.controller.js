@@ -120,6 +120,8 @@ export default {
 		if (!song) return {response:"song does not exist."}
 
 		console.log(user)
+		console.log(playlist)
+		console.log(song)
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
 		if (playlist.author !== user.id && !collabotation) return {response:"You are not authorized to edit this playlist."}
