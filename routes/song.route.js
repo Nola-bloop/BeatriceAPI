@@ -3,7 +3,7 @@ import controller from "../controllers/song.controller.js"
 
 const router = express.Router();
 
-// ?name&url&length&playlistId
+// ?userId&url&playlistId
 router.post("/", (req, res) => {
   try{
     controller.Create(req).then((j) =>{

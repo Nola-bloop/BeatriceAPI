@@ -25,5 +25,8 @@ export default {
 
 		let rows = await model.ReadByPlaylist(req.params.id)
 		return rows
+	},
+	ReadByBothInternal : async (id, playlistId) => {
+		return await model.ReadByBoth(id, playlistId)
 	}
 }
