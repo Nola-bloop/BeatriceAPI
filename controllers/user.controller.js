@@ -22,6 +22,7 @@ export default {
 		return user
 	},
 	ReadId : async (req) => {
+		console.log("made it to controller")
 		if (
 			!req.params.id
 		) return {response:"missing param"}
