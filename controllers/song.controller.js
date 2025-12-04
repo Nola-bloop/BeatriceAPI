@@ -116,6 +116,7 @@ export default {
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let song = await model.ReadId(req.query.id)
 		let playlist = await playlists.ReadId(song.playlist_id)
+		if (!playlist) return {response:"This playlist does not exist. " + song.playlist_id}
 
 		if (!song) return {response:"song does not exist."}
 
