@@ -15,6 +15,11 @@ export default {
 		let playlist = await playlists.ReadId(req.query.playlistId)
 		if (!playlist) return {response:"This playlist does not exist."}
 
+		//check if collaboration exists
+		let collaboration = await model.getByBoth(user.id, playlist.id)
+		if (collaboration) return {response:"User is already a collaborator."}
+
+
 		if (playlist.author != user.id) return {response:"You are not the author of this playlist."}
 
 		await model.Create(collaborator.id,playlist.id)
