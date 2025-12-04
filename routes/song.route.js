@@ -36,7 +36,7 @@ router.get("/by-playlist/:id", (req, res) => {
   }
 });
 
-// ?id
+// ?userId&id
 router.delete("/", (req, res) => {
   try{
     controller.Delete(req).then((j) =>{

@@ -108,7 +108,8 @@ export default {
 	},
 	Delete : async (req) => {
 		if (
-			!req.query.id
+			!req.query.id ||
+			!req.query.userId
 		) return {response:"missing query param"}
 
 		//sanity checks
