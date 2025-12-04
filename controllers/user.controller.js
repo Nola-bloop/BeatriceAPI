@@ -27,6 +27,7 @@ export default {
 		) return {response:"missing param"}
 
 		let user = await model.ReadId(req.params.id)
+		console.log(user)
 		return user
 	},
 	ReadUserIdInternal : async (userId) => {
