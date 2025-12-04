@@ -46,6 +46,7 @@ export default {
 		) return {response:"missing query param"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
+		let newAuthor = await userCtrl.ReadUserIdInternal(req.query.author)
 		let playlist = await model.ReadId(req.query.id)
 		if (user.id === playlist.author){
 			await model.Update(
@@ -53,7 +54,7 @@ export default {
 				req.query.name ?? playlist.name,
 				playlist.count,
 				playlist.total_time,
-				req.query.author ?? playlist.author
+				newAuthor.id ?? playlist.author
 			)
 			return {response: "success"}
 		}
