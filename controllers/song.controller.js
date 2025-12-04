@@ -53,7 +53,6 @@ export default {
 	Create : async (req) => {
 		if (
 			!req.query.userId ||
-			!req.query.name ||
 			!req.query.url ||
 			!req.query.playlistId
 		) return {response:"missing query param"}
