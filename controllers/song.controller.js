@@ -62,6 +62,7 @@ export default {
 		let playlist = playlists.ReadId(req.query.playlistId)
 
 		if (!playlist) return {response:"playlist does not exist."}
+		if (playlist.response) return playlist.response
 
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
@@ -117,6 +118,8 @@ export default {
 		let playlist = playlists.ReadId(req.query.playlistId)
 
 		if (!song) return {response:"song does not exist."}
+		if (playlist.response) return playlist.response
+		if (song.response) return song.response
 
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
