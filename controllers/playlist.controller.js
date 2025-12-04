@@ -29,7 +29,7 @@ export default {
 		) return {response:"missing params"}
 
 		let playlist = await model.ReadId(req.params.id)
-		if (!playlist) return {return {response:"This playlist does not exist."}}
+		if (!playlist) return {response:"This playlist does not exist."}
 		let songs = await song.ReadPlaylistId(playlist.id)
 		let collaborations = await collaboration.ReadByPlaylist(playlist.id)
 		playlist.songs = songs
