@@ -33,7 +33,7 @@ function GetVideoId(url){
     }
 }
 async function GetVideoLength(videoId){
-	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${process.env.DBUSER}`;
+	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`;
     
     const response = await fetch(url);
     const videoObj = await response.json();
