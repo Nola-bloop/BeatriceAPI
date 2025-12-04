@@ -47,14 +47,13 @@ export default {
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let playlist = await model.ReadId(req.query.id)
-		console.log(user.id + " ; " + playlist.id)
 		if (user.id === playlist.author){
 			await model.Update(
 				req.query.id,
 				req.query.name ?? playlist.name,
 				playlist.count,
 				playlist.total_time,
-				user.id ?? playlist.author
+				req.query.author ?? playlist.author
 			)
 			return {response: "success"}
 		}
