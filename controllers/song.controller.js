@@ -59,8 +59,7 @@ export default {
 
 		//sanity checks
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
-		let playlist = playlists.ReadId(req.query.playlistId)
-		console.log(`playlist : ${playlist}`)
+		let playlist = await playlists.ReadId(req.query.playlistId)
 
 		if (!playlist) return {response:"playlist does not exist."}
 
@@ -115,7 +114,7 @@ export default {
 		//sanity checks
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let song = await model.ReadId(req.query.id)
-		let playlist = playlists.ReadId(req.query.playlistId)
+		let playlist = await playlists.ReadId(req.query.playlistId)
 
 		if (!song) return {response:"song does not exist."}
 
