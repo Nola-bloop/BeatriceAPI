@@ -16,7 +16,7 @@ export default {
 		if (!playlist) return {response:"This playlist does not exist."}
 
 		//check if collaboration exists
-		let collaboration = await model.getByBoth(user.id, playlist.id)
+		let collaboration = await model.ReadByBoth(user.id, playlist.id)
 		if (collaboration) return {response:"User is already a collaborator."}
 
 
