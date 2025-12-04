@@ -17,6 +17,7 @@ export default {
 
 		//check if collaboration exists
 		let collaboration = await model.ReadByBoth(user.id, playlist.id)
+		console.log(`peepoo:${collaboration}`)
 		if (collaboration) return {response:"User is already a collaborator."}
 
 
