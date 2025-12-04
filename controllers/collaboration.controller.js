@@ -11,12 +11,13 @@ export default {
 		) return {response:"missing query param"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
+		let collaborator = await userCtrl.ReadUserIdInternal(req.query.collaborator)
 		let playlist = await playlists.ReadId(req.query.playlistId)
 		if (!playlist) return {response:"This playlist does not exist."}
 
 		if (playlist.author != user.id) return {response:"You are not the author of this playlist."}
 
-		await model.Create(req.query.collaborator,req.query.playlistId)
+		await model.Create(collaborator.id,playlist.id)
 		return {"response": "success"}
 	},
 	ReadByCollaborator : async (req, res) => {
@@ -46,12 +47,13 @@ export default {
 		) return {response:"missing query param"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
+		let collaborator = await userCtrl.ReadUserIdInternal(req.query.collaborator)
 		let playlist = await playlists.ReadId(req.query.playlistId)
 		if (!playlist) return {response:"This playlist does not exist."}
 
 		if (playlist.author != user.id) return {response:"You are not the author of this playlist."}
 
-		await model.Delete(req.query.collaborator,req.query.playlistId)
+		await model.Delete(collaborator.id,playlist.id)
 		return {"response": "success"}
 	}
 }
