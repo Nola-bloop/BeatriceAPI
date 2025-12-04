@@ -65,7 +65,7 @@ export default {
 
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
-		if (playlist.author !== user.id && !collabotation) return {response:"You are not authorized to edit this playlist."}
+		if (playlist.author !== user.id && !collaboration) return {response:"You are not authorized to edit this playlist."}
 
 
 		let videoId = GetVideoId(req.query.url)
