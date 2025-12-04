@@ -3,20 +3,50 @@ import playlists from "../models/playlist.model.js"
 import userCtrl from "../controllers/user.controller.js"
 import collaborationCtrl from "../controllers/collaboration.controller.js"
 
+function parseISO8601Duration(duration) {
+    const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+
+    const hours = parseInt(match[1] || 0);
+    const minutes = parseInt(match[2] || 0);
+    const seconds = parseInt(match[3] || 0);
+
+    return hours * 3600 + minutes * 60 + seconds;
+}
+function GetVideoId(url){
+	try {
+        const paramString = url.split('?')[1];
+        if (paramString) {
+            const query = new URLSearchParams(paramString);
+            const videoId = query.get("v");
+            if (videoId) return videoId;
+        }
+
+        // fallback for https://youtu.be/VIDEOID
+        const match = url.match(/youtu\.be\/([^?]+)/);
+        if (match) return match[1];
+
+        return null;
+    } catch {
+        return null;
+    }
+}
 async function GetVideoLength(videoId){
-	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=AIzaSyBxaqbqnsNVUeh8ERH37-AAY5WluNZPpxw`
-	const response = await fetch(url, {
-	  method: "GET"
-	});
-	const videoObj = await response.json()
-	if (videoId.error) return {response:"Invalid url."}
-	const title = videoObj.item[0].snippet.title
-	const ptms = videoObj.item[0].contentDetails.duration
-	const minuteMark = ptms.search("M")
-	const minutes = Number(ptms.substring(1,(minuteMark-ptms.length)))
-	const seconds = Number(ptms.substring(minuteMark+1, -1))
-	const songLength = (minutes*60)+seconds
-	return [songLength, title]
+	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=AIzaSyBxaqbqnsNVUeh8ERH37-AAY5WluNZPpxw`;
+    
+    const response = await fetch(url);
+    const videoObj = await response.json();
+
+    if (videoObj.error) return { response: "Invalid API request." };
+    if (!videoObj.items || videoObj.items.length === 0)
+        return { response: "Invalid video ID." };
+
+    const data = videoObj.items[0];
+    const title = data.snippet.title;
+    const durationISO = data.contentDetails.duration;
+
+    const songLength = parseISO8601Duration(durationISO);
+
+    return [songLength, title];
 }
 
 export default {
@@ -38,14 +68,8 @@ export default {
 
 		if (playlist.author !== user.id && !collabotation) return {response:"You are not authorized to edit this playlist."}
 
-		let paramString = req.query.url.split('?')[1];
-        let queryString = new URLSearchParams(paramString);
-        let videoId = "";
-        for(let pair of queryString.entries()) {
-        	if (pair[0] == v){
-        		videoId = pair[1]
-        	}
-        }
+
+		let videoId = GetVideoId(req.query.url)
 		let [songLength, title] = await GetVideoLength(videoId)
 		if (songLength.response) return songLength //in case of error
 		//--------------
@@ -99,14 +123,7 @@ export default {
 
 		if (playlist.author !== user.id && !collabotation) return {response:"You are not authorized to edit this playlist."}
 
-		let paramString = song.url.split('?')[1];
-        let queryString = new URLSearchParams(paramString);
-        let videoId = "";
-        for(let pair of queryString.entries()) {
-        	if (pair[0] == v){
-        		videoId = pair[1]
-        	}
-        }
+		let videoId = GetVideoId(song.url)
 		let [songLength, title] = await GetVideoLength(videoId)
 		if (songLength.response) return songLength //in case of error
 		//--------------
