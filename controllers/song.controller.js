@@ -115,11 +115,10 @@ export default {
 		//sanity checks
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let song = await model.ReadId(req.query.id)
-		let playlist = await playlists.ReadId(req.query.playlistId)
+		let playlist = await playlists.ReadId(song.playlist_id)
 
 		if (!song) return {response:"song does not exist."}
 
-		console.log(user)
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
 		if (playlist.author !== user.id && !collabotation) return {response:"You are not authorized to edit this playlist."}
