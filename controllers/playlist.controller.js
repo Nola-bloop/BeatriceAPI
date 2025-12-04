@@ -32,7 +32,7 @@ export default {
 		let songs = await song.ReadPlaylistId(playlist.id)
 		let collaborations = await collaboration.ReadByPlaylist(playlist.id)
 		playlist.songs = songs
-		playlist.collaborations = collaborators
+		playlist.collaborations = collaborations
 		return playlist
 	},
 	Update : async (req) => {
