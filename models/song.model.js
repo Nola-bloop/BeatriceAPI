@@ -12,7 +12,7 @@ export default {
 	ReadId : async (id) => {
 		return new Promise((resolve, reject) => {
 			con.query("SELECT song.* FROM song WHERE song.id = ?", [id], (e, results) => {
-				if (!e) resolve(results)
+				if (!e) resolve(results[0])
 				else reject(e)
 			})
 		})
