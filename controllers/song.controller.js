@@ -2,6 +2,8 @@ import model from "../models/song.model.js"
 import playlists from "../models/playlist.model.js"
 import userCtrl from "../controllers/user.controller.js"
 import collaborationCtrl from "../controllers/collaboration.controller.js"
+import 'dotenv/config'
+
 
 function parseISO8601Duration(duration) {
     const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -31,7 +33,7 @@ function GetVideoId(url){
     }
 }
 async function GetVideoLength(videoId){
-	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=AIzaSyBxaqbqnsNVUeh8ERH37-AAY5WluNZPpxw`;
+	const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${process.env.DBUSER}`;
     
     const response = await fetch(url);
     const videoObj = await response.json();
