@@ -27,7 +27,7 @@ export default {
 	},
 	ReadByBoth : async (id, playlistId) => {
 		return new Promise((resolve, reject) => {
-			con.query("SELECT collaboration.* FROM collaboration WHERE collaboration.playlist_id = ? AND collaboration.id = ?", [playlistId, id], (e, results) => {
+			con.query("SELECT collaboration.* FROM collaboration WHERE collaboration.playlist_id = ? AND collaboration.collaborator = ?", [playlistId, id], (e, results) => {
 				if (!e) resolve(results[0])
 				else reject(e)
 			})
