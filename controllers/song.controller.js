@@ -117,10 +117,9 @@ export default {
 		//sanity checks
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let song = await model.ReadId(req.query.id)
+		if (!song) return {response:"song does not exist."}
 		let playlist = await playlists.ReadId(song.playlist_id)
 		if (!playlist) return {response:"This playlist does not exist. " + song.playlist_id}
-
-		if (!song) return {response:"song does not exist."}
 
 		let collaboration = collaborationCtrl.ReadByBothInternal(user.id, playlist.id)
 
