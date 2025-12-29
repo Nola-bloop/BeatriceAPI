@@ -2,16 +2,12 @@ import model from "../models/birthday.model.js"
 import userCtrl from "../controllers/user.controller.js"
 
 function GetDate(timeString){
-	let localDate = new Date(timeString)
-	let utcDate = Date.UTC(
-		localDate.getUTCFullYear(), 
-		localDate.getUTCMonth(),
-        localDate.getUTCDate(), 
-        localDate.getUTCHours(),
-		localDate.getUTCMinutes(),
-		localDate.getUTCSeconds());
-
-	return new Date(utcDate)
+	const normalized = timeString
+		.split("-")
+		.map(v => v.padStart(2, "0"))
+		.join("-")
+	const utcDate = new Date(`${normalized}T00:00:00Z`)
+	return utcDate
 }
 
 export default {

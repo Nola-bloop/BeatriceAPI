@@ -37,7 +37,7 @@ export default {
 	Update : async (userId, day, month, year) => {
 		console.log(`updating bday with ${userId} ${day} ${month} ${year}`)
 		return new Promise((resolve, reject) =>{
-			con.query("UPDATE birthday SET `user_id` = ?", [userId], (e, results) => {
+			con.query("UPDATE birthday SET `date` = ? WHERE user_id = ?", [`${day}-${month}-${year}`, userId], (e, results) => {
 				if (!e) resolve("success.")
 				else reject(e)
 			})
