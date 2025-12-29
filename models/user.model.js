@@ -10,7 +10,6 @@ export default {
 		})
 	},
 	ReadId : async (id) => {
-		console.log("made it to model")
 		return new Promise((resolve, reject) => {
 			con.query("SELECT user.* FROM user WHERE user.id = ?", [id], (e, results) => {
 				if (!e) resolve(results[0])

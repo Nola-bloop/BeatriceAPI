@@ -26,7 +26,6 @@ router.get("/:id", (req, res) => {
 });
 // /id/:id
 router.get("/id/:id", (req, res) => {
-  console.log("made it to router")
   try{
     controller.ReadId(req).then((j) =>{
       res.json(j)
