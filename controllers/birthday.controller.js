@@ -11,7 +11,7 @@ function GetDate(timeString){
 		localDate.getUTCMinutes(),
 		localDate.getUTCSeconds());
 
-	return utcDate
+	return new Date(utcDate)
 }
 
 export default {
