@@ -36,6 +36,17 @@ router.get("/user/:id", (req, res) => {
   }
 });
 
+// /
+router.get("/", (req, res) => {
+  try{
+    controller.ReadId(req).then((j)=>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json({error:e.toString})
+  }
+});
+
 // /GetShowBool/?userId||birthdayId
 router.get("/GetShowBool/", (req, res) => {
   try{

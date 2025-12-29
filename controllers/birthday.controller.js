@@ -42,6 +42,10 @@ export default {
 		let birthday = await model.ReadUser(user.id)
 		return birthday
 	},
+	Read : async (req) => {
+		let birthdays = await model.Read()
+		return birthdays
+	},
 	GetShowBool : async (req) => {
 		if (
 			!req.params.userId &&

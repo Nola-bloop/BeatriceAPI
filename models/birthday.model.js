@@ -26,6 +26,14 @@ export default {
 			})
 		})
 	},
+	Read : async () => {
+		return new Promise((resolve, reject) =>{
+			con.query("SELECT * FROM birthday", (e, results) => {
+				if (!e) resolve(results)
+				else reject(e)
+			})
+		})
+	},
 	Update : async (userId, day, month, year) => {
 		console.log("updating bday")
 		return new Promise((resolve, reject) =>{
