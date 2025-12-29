@@ -15,7 +15,7 @@ export default {
 		if (req.query.year > new Date().getFullYear() || req.query.day < 1) return {response:"Invalid year. Cannot be higher than current year."}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
-		let possibleBday = await model.readUser(user.id)
+		let possibleBday = await model.ReadUser(user.id)
 
 		if (possibleBday) await model.Update(user.id, req.query.day, req.query.month, req.query.year)
 		else await model.Create(user.id, req.query.day, req.query.month, req.query.year)
