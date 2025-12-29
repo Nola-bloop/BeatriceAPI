@@ -12,7 +12,7 @@ export default {
 
 		if (req.query.day > 31 || req.query.day < 1) return {response:"Invalid date."}
 		if (req.query.month > 12 || req.query.day < 1) return {response:"Invalid month."}
-		if (req.query.year > new Date().getFullYear() || req.query.year < 1970) return {response:"Invalid year. Cannot be later than current year or earlier than 1970 (because of the unix timestamp.)"}
+		if (req.query.year > new Date().getFullYear().getUTCDate() || req.query.year < 1970) return {response:"Invalid year. Cannot be later than current year or earlier than 1970 (because of the unix timestamp.)"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let possibleBday = await model.ReadUser(user.id)
@@ -65,16 +65,16 @@ export default {
 
 		if (!birthday) return {response:"No birthday found."}
 
-		birthday.setFullYear(new Date().getFullYear())
+		birthday.setFullYear(new Date().getFullYear().getUTCDate())
 
 		let presetValue = birthday.flag
-		let date = Date.UTC(birthday.date)
+		let date = new Date(birthday.date).getUTCDate()
 		date.setMonth(date.getMonth())
 
-		let warningThreshold = Date.UTC(birthday.date)
+		let warningThreshold = new Date(birthday.date).getUTCDate()
 		warningThreshold.setUTCDate(warningThreshold.getUTCDate() - 7) //warn 1 week earlier
 		
-		let today = Date.UTC(new Date())
+		let today = new Date().getUTCDate()
 
 		if (today > warningThreshold && today < date && presetValue === 0){
 			model.FlagOn(birthday.id)
