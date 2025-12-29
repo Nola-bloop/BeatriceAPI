@@ -68,13 +68,13 @@ export default {
 		birthday.setFullYear(new Date().getFullYear())
 
 		let presetValue = birthday.flag
-		let date = new Date(birthday.date)
+		let date = Date.UTC(birthday.date)
 		date.setMonth(date.getMonth())
 
-		let warningThreshold = new Date(birthday.date)
+		let warningThreshold = Date.UTC(birthday.date)
 		warningThreshold.setUTCDate(warningThreshold.getUTCDate() - 7) //warn 1 week earlier
 		
-		let today = new Date()
+		let today = Date.UTC(new Date())
 
 		if (today > warningThreshold && today < date && presetValue === 0){
 			model.FlagOn(birthday.id)
