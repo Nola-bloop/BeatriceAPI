@@ -1,15 +1,6 @@
 import model from "../models/birthday.model.js"
 import userCtrl from "../controllers/user.controller.js"
 
-function GetDate(timeString){
-	const normalized = timeString
-		.split("-")
-		.map(v => v.padStart(2, "0"))
-		.join("-")
-	const utcDate = new Date(`${normalized}T00:00:00Z`)
-	return utcDate
-}
-
 export default {
 	Create : async (req) => {
 		if (
@@ -21,7 +12,7 @@ export default {
 
 		if (req.query.day > 31 || req.query.day < 1) return {response:"Invalid date."}
 		if (req.query.month > 12 || req.query.day < 1) return {response:"Invalid month."}
-		if (req.query.year > GetDate().getFullYear() || req.query.year < 1970) return {response:"Invalid year. Cannot be later than current year or earlier than 1970 (because of the unix timestamp.)"}
+		if (req.query.year > new Date().getFullYear() || req.query.year < 1970) return {response:"Invalid year. Cannot be later than current year or earlier than 1970 (because of the unix timestamp.)"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let possibleBday = await model.ReadUser(user.id)
@@ -74,16 +65,16 @@ export default {
 
 		if (!birthday) return {response:"No birthday found."}
 
-		birthday.setFullYear(GetDate().getFullYear())
+		birthday.setFullYear(new Date().getFullYear())
 
 		let presetValue = birthday.flag
-		let date = GetDate(birthday.date)
+		let date = new Date(birthday.date)
 		date.setMonth(date.getMonth())
 
-		let warningThreshold = GetDate(birthday.date)
+		let warningThreshold = new Date(birthday.date)
 		warningThreshold.setUTCDate(warningThreshold.getUTCDate() - 7) //warn 1 week earlier
 		
-		let today = GetDate()
+		let today = new Date()
 
 		if (today > warningThreshold && today < date && presetValue === 0){
 			model.FlagOn(birthday.id)
