@@ -21,7 +21,7 @@ export default {
 	ReadUser : async (userId) => {
 		return new Promise((resolve, reject) =>{
 			con.query("SELECT * FROM birthday WHERE user_id = ?", [userId], (e, results) => {
-				if (!e) resolve(results)
+				if (!e) resolve(results[0])
 				else reject(e)
 			})
 		})
