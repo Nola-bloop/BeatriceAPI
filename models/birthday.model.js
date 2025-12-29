@@ -28,7 +28,7 @@ export default {
 	},
 	Read : async () => {
 		return new Promise((resolve, reject) =>{
-			con.query("SELECT * FROM birthday", (e, results) => {
+			con.query("SELECT * FROM birthday ORDER BY `date`", (e, results) => {
 				if (!e) resolve(results)
 				else reject(e)
 			})
