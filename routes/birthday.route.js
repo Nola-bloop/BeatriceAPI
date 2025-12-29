@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
 // /
 router.get("/", (req, res) => {
   try{
-    controller.ReadId(req).then((j)=>{
+    controller.Read(req).then((j)=>{
       res.json(j)
     })
   }catch(e){
