@@ -2,6 +2,7 @@ import con from "../beatrice.db.js"
 
 export default {
 	Create : async (user, day, month, year) => {
+		console.log("creating bday")
 		return new Promise((resolve, reject) =>{
 			con.query("INSERT INTO birthday (user_id, `date`) VALUES (?, ?)", [user, `${year}-${month}-${day}`], (e, results) => {
 				if (!e) resolve("success.")
@@ -26,6 +27,7 @@ export default {
 		})
 	},
 	Update : async (userId, day, month, year) => {
+		console.log("updating bday")
 		return new Promise((resolve, reject) =>{
 			con.query("UPDATE birthday SET `user_id` = ?", [userId], (e, results) => {
 				if (!e) resolve("success.")
