@@ -65,7 +65,7 @@ export default {
 
 		if (!birthday) return {response:"No birthday found."}
 
-
+		birthday.setFullYear(new Date().getFullYear)
 
 		let presetValue = birthday.flag
 		let date = new Date(birthday.date)
