@@ -17,7 +17,10 @@ export default {
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let possibleBday = await model.ReadUser(user.id)
 
-		if (possibleBday != undefined) await model.Update(user.id, req.query.day, req.query.month, req.query.year)
+		if (typeof possibleBday !== undefined){
+			console.log(possibleBday)
+			await model.Update(user.id, req.query.day, req.query.month, req.query.year)
+		}
 		else await model.Create(user.id, req.query.day, req.query.month, req.query.year)
 		return {"response": "success"}
 	},
@@ -51,7 +54,7 @@ export default {
 
 		let birthday
 
-		if (user != undefined)
+		if (typeof user !== undefined)
 			birthday = await model.ReadUser(user.id)
 		else
 			birthday = await model.ReadId(req.params.birthdayId)
