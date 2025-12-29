@@ -12,7 +12,7 @@ export default {
 
 		if (req.query.day > 31 || req.query.day < 1) return {response:"Invalid date."}
 		if (req.query.month > 12 || req.query.day < 1) return {response:"Invalid month."}
-		if (req.query.year > new Date().getFullYear() || req.query.day < 1) return {response:"Invalid year. Cannot be higher than current year."}
+		if (req.query.year > new Date().getFullYear() || req.query.year < 1970) return {response:"Invalid year. Cannot be later than current year or earlier than 1970 (because of the unix timestamp.)"}
 
 		let user = await userCtrl.ReadUserIdInternal(req.query.userId)
 		let possibleBday = await model.ReadUser(user.id)
