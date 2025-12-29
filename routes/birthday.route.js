@@ -14,6 +14,17 @@ router.post("/", (req, res) => {
   }
 });
 
+// /
+router.get("/", (req, res) => {
+  try{
+    controller.ReadId(req).then((j)=>{
+      res.json(j)
+    })
+  }catch(e){
+    res.json({error:e.toString})
+  }
+});
+
 // /id/:id
 router.get("/id/:id", (req, res) => {
   try{
@@ -29,17 +40,6 @@ router.get("/id/:id", (req, res) => {
 router.get("/user/:id", (req, res) => {
   try{
     controller.ReadUser(req).then((j) =>{
-      res.json(j)
-    })
-  }catch(e){
-    res.json({error:e.toString})
-  }
-});
-
-// /
-router.get("/", (req, res) => {
-  try{
-    controller.ReadId(req).then((j)=>{
       res.json(j)
     })
   }catch(e){
